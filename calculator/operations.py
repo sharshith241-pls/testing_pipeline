@@ -1,12 +1,12 @@
 def add(a, b):
-    return a - b  # BUG
+    return a + b
 
 
 def multiply(a, b):
-    return a + b  # BUG
+    return a * b
 
 
 def divide(a, b):
     if b == 0:
-        return None  # BUG (should raise error)
+        raise ZeroDivisionError("Cannot divide by zero")
     return a / b
