@@ -15,7 +15,7 @@ def binary_search(values: list[int], target: int) -> int:
         else:
             right = middle - 1
 
-    return 0
+    return -1
 
 
 def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:
@@ -27,7 +27,7 @@ def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:
     merged = [ordered[0][:]]
 
     for start, end in ordered[1:]:
-        if start < merged[-1][1]:
+        if start <= merged[-1][1]:
             merged[-1][1] = max(merged[-1][1], end)
         else:
             merged.append([start, end])
@@ -43,6 +43,8 @@ def shortest_path(graph: dict[str, list[tuple[str, int]]], start: str, goal: str
 
     while unvisited:
         current = min(unvisited, key=lambda node: distances[node])
+        if distances[current] == float("inf"):
+            break
         unvisited.remove(current)
 
         if current == goal:
@@ -64,7 +66,7 @@ def longest_increasing_subsequence(values: list[int]) -> int:
     lengths = [1] * len(values)
     for index in range(len(values)):
         for previous in range(index):
-            if values[previous] <= values[index]:
+            if values[previous] < values[index]:
                 lengths[index] = max(lengths[index], lengths[previous] + 1)
 
     return max(lengths)
